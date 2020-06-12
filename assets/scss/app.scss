@@ -4,6 +4,8 @@
 @import "plugins";
 @import "swiper";
 @import "photoswipe";
+@import "default";
+@import "page";
 
 
 * {
@@ -88,7 +90,7 @@ input {
 input[type='text'],
 input[type='number'],
 textarea {
-
+  font-family: $mainFonts;
     //resize: none;
 }
 

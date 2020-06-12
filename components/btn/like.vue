@@ -28,12 +28,31 @@
     align-items: center;
     color: $grey;
     transition: all .3s;
-
+    font-weight: 800;
     &:hover {
       color: $green;
 
       .likeBtn__svg {
-        fill:$green;
+        fill: $green;
+      }
+    }
+
+    &.disabled {
+      &:hover {
+        color: $grey;
+
+        .likeBtn__svg {
+          fill: $grey;
+        }
+      }
+    }
+
+    &.mini {
+      font-size: 12px;
+
+      .likeBtn__svg {
+        width: 14px;
+        height: 14px;
       }
     }
 
@@ -41,13 +60,13 @@
       color: $green !important;
 
       .likeBtn__svg {
-        fill:$green !important;
+        fill: $green !important;
       }
     }
 
     &__svg {
       transition: all .3s;
-      fill:$grey;
+      fill: $grey;
       width: 18px;
       height: 18px;
       margin-right: 5px;

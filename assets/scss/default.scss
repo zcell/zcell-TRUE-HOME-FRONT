@@ -1,0 +1,18 @@
+.container {
+  display: block;
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+
+  @include below(1780px) {
+   // padding: 0 40px;
+  }
+
+  @include below(1024px) {
+  //  padding: 0 30px;
+  }
+
+  @include below(480px) {
+  //  padding: 0 15px;
+  }
+}

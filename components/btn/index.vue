@@ -27,13 +27,18 @@
     align-items: center;
     justify-content: center;
 
-    padding: 17px 55px;
+    padding: 17px 35px;
     border-radius: 48px;
 
+    white-space: nowrap;
     background-color: $secondaryColor;
     color: $white;
     font-size: $mainFs;
 
     transition: all .3s;
+
+    &:hover {
+      background-color: #F95728;
+    }
   }
 </style>

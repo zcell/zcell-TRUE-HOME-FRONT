@@ -70,6 +70,7 @@ export default {
     '~/plugins/debounce',
     '~/plugins/moment',
     '~/plugins/customPlugins',
+    '~/plugins/declOfNum',
   ],
   /*
   ** Nuxt.js dev-modules

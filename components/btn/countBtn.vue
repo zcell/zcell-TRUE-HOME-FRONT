@@ -29,7 +29,22 @@
 
     transition: all .3s;
     color: $grey;
-    font-weight: 600;
+    font-weight: 800;
+
+    &.mini {
+      font-size: 12px;
+      .countBtn__svg {
+        width: 15px;
+        height: 14px;
+      }
+    }
+
+    &.disabled {
+      .countBtn__svg {
+        fill: $black !important;
+      }
+      color: $black !important;
+    }
 
     &:hover {
        .countBtn__svg {

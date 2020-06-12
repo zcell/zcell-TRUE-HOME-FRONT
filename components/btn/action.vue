@@ -33,6 +33,13 @@
     background-color: $white;
     transition: all .3s;
 
+    &.isBell {
+      .actionBtn__svg {
+        fill: $secondaryColor !important;
+      }
+
+    }
+
     &.isActive {
         background-color: $secondaryColor !important;
 

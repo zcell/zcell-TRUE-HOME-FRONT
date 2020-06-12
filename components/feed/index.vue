@@ -19,30 +19,39 @@
 
       <div class="feed__headerRight">
         <actionBtn svg="bookMarks" class="feed__action isActive"/>
-        <actionBtn svg="options" class="feed__action"/>
-
+        <actionBtn svg="options"
+                   @click="showDropMeny = !showDropMeny"
+                   class="feed__action"/>
+        <dropMenu v-click-outside="dropMenu"
+                  class="feed__dropMenu"
+                  :items="dropMenuItems"
+                  v-if="showDropMeny"/>
       </div>
 
 
     </div>
 
     <div class="feed__caption">
-      Уборка мусора
+      <span class="feed__span">{{feed.caption}}</span>
+
+      <subCaption class="feed__subCaption" text="14.07.20 в 18:00">
+        <svg-icon class="subCaption__svg" name="time"/>
+      </subCaption>
     </div>
 
     <div class="feed__text">
-      В 1942 году ситуация на западном фронте для Великобритании была катастрофической. Немецкие кригсмарине раз за
-      разом наносили королевскому флоту существенные потери. Мощная промышленная база Германии позволяла стране быстро
-      возмещать свои потери в технике, тогда как Великобритания, вступив в войну недостаточно подготовленной,
-      рассматривала любые, даже самые безумные идеи, которые могли бы помочь ей противостоять противнику.
+      {{feed.text}}
     </div>
 
-    <customSwiper :items="slides"
+    <customSwiper :items="feed.swiper.slides"
+                  :swiperItem="feed.swiper.swiperItem"
                   class="feed__swiper"
-                  @openPSWP="$emit('openPSWP', {index: $event, items: slides})"/>
+                  @openFeed="$emit('openFeed', {id: $event})"
+                  @openPSWP="$emit('openPSWP', {index: $event, items: feed.swiper.slides})"/>
 
     <div class="feed__footer">
-      <countBtn count="180"/>
+      <countBtn count="180"
+                @click="showComments = !showComments"/>
 
       <div class="feed__rating">
         <like class="feed__ratingItem"/>
@@ -50,49 +59,63 @@
       </div>
     </div>
 
+<!--    <slide-up-down :active="showComments"-->
+<!--                   class="">-->
+<!--    -->
+<!--    </slide-up-down>-->
+
+    <template v-if="showComments">
+      <div class="feed__hr"></div>
+      <comments class="feed__comments" />
+    </template>
+
+
   </div>
 </template>
 
 <script>
   export default {
     name: "feed",
-    props: {},
+    props: {
+      feed: {
+        type: Object,
+        default() {
+          return {}
+        }
+      }
+    },
 
     data() {
       return {
-        slides: [
+        showComments: true,
+        dropMenu: {
+          handler: this.handlerDropMenu,
+          middleware: this.middlewareDropMenu,
+          events: ['dblclick', 'click'],
+          showTooltip: true
+        },
+        showDropMeny: false,
+        dropMenuItems: [
           {
-            w: '1000',
-            h: '500',
-            src: '/img/slide1.png',
-            id: 1
+            id: 1,
+            name: 'Редактировать',
           },
           {
-            w: '1000',
-            h: '500',
-            src: '/img/slide2.png',
-            id: 2
-          },
-          {
-            w: '1000',
-            h: '500',
-            src: '/img/slide3.png',
-            id: 3
-          },
-          {
-            w: '1000',
-            h: '500',
-            src: '/img/slide1.png',
-            id: 4
-          },
-          {
-            w: '1000',
-            h: '500',
-            src: '/img/slide2.png',
-            id: 5
-          },
-        ],
+            id: 2,
+            name: 'Удалить'
+          }
+        ]
       }
+    },
+
+    methods: {
+      handlerDropMenu(event, el) {
+        this.showDropMeny = false;
+      },
+
+      middlewareDropMenu(event, el) {
+        return event.target.className !== '.dropMenu'
+      },
     }
   }
 </script>
@@ -117,6 +140,17 @@
       margin-bottom: 20px;
     }
 
+    &__comments {
+
+    }
+
+    &__hr {
+      margin: 25px 0;
+      width: 100%;
+      height: 1px;
+      background-color: #DDDDDD;
+    }
+
     &__headerLeft {
       display: flex;
       align-items: center;
@@ -134,6 +168,7 @@
 
     &__avatarUser {
       color: $primaryColor;
+      font-weight: 800;
     }
 
     &__avatarTime {
@@ -141,22 +176,37 @@
     }
 
     &__headerRight {
+      position: relative;
       display: flex;
       align-items: center;
     }
 
     &__action {
-      margin-right: 10px;
+      margin-left: 4px;
 
-      &:last-child {
-        margin-right: 0;
+      &:first-child {
+        margin-left: 0;
       }
     }
 
+    &__dropMenu {
+      right: -7px !important;
+      top: 55px !important;
+    }
+
     &__caption {
-      font-size: 20px;
-      font-weight: 600;
+      width: 100%;
+
       margin-bottom: 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__span {
+      font-size: 20px;
+      font-weight: 800;
     }
 
     &__text {

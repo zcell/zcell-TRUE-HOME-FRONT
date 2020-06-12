@@ -31,5 +31,10 @@
 
     border-radius: 50%;
     overflow: hidden;
+
+    &.mini {
+      width: 34px;
+      height: 34px;
+    }
   }
 </style>

@@ -1,11 +1,19 @@
 <template>
   <div class="components">
+
+    <customInput v-model="input"/>
+    <customInput v-model="input"  text-error="asd"/>
+    <customTextarea v-model="textarea"/>
+    <customTextarea v-model="textarea" text-error="asd"/>
+    <hr/>
     <customBtn>
       Add Button
     </customBtn>
     <hr/>
-    <feed @openPSWP="openPSWP($event)" />
+    <feed @openPSWP="openPSWP($event)" :feed="feed1"/>
 
+    <hr/>
+    <feed @openPSWP="openPSWP($event)" :feed="feed2"/>
 
 
     <photoswipe-custom-components :isOpen="PSWisOpen"
@@ -13,6 +21,9 @@
                                   :items="photos"
                                   :options="PSWOptions"
                                   @close="hidePhotoSwipe()"/>
+
+
+
   </div>
 </template>
 
@@ -22,6 +33,68 @@
 
     data() {
       return {
+        input: '',
+        textarea: '',
+        feed1: {
+          swiper: {
+            swiperItem: 'itemImg',
+            slides: [
+              {
+                w: '1000',
+                h: '500',
+                src: '/img/slide1.png',
+                id: 1
+              },
+              {
+                w: '1000',
+                h: '500',
+                src: '/img/slide2.png',
+                id: 2
+              },
+              {
+                w: '1000',
+                h: '500',
+                src: '/img/slide3.png',
+                id: 3
+              },
+              {
+                w: '1000',
+                h: '500',
+                src: '/img/slide1.png',
+                id: 4
+              },
+              {
+                w: '1000',
+                h: '500',
+                src: '/img/slide2.png',
+                id: 5
+              },
+            ],
+          },
+          caption: 'Уборка мусора',
+          text: 'В 1942 году ситуация на западном фронте для Великобритании была катастрофической. Немецкие кригсмарине раз за разом наносили королевскому флоту существенные потери. Мощная промышленная база Германии позволяла стране быстро возмещать свои потери в технике, тогда как Великобритания, вступив в войну недостаточно подготовленной, рассматривала любые, даже самые безумные идеи, которые могли бы помочь ей противостоять противнику.',
+        },
+        feed2: {
+          swiper: {
+            swiperItem: 'postItem',
+            slides: [
+              {
+                caption: 'Уборка мусора',
+                text: 'В 1942 году ситуация на западном фронте для Великобритании была катастрофической...',
+              },
+              {
+                caption: 'Уборка мусора',
+                text: 'В 1942 году ситуация на западном фронте для Великобритании была катастрофической...',
+              },
+              {
+                caption: 'Уборка мусора',
+                text: 'В 1942 году ситуация на западном фронте для Великобритании была катастрофической...',
+              },
+            ],
+          },
+          caption: 'Собрание жильцов',
+          text: 'В 1942 году ситуация на западном фронте для Великобритании была катастрофической...',
+        },
         PSWisOpen: false,
         photos: [],
         PSWOptions: {

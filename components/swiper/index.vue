@@ -1,21 +1,25 @@
 <template>
-  <div class="customSwiper swiper-container"
-       v-swiper:carSwiper="swiperOption">
-    <ul class="customSwiper__wrapper swiper-wrapper">
-      <li class="customSwiper__swiperSlide swiper-slide"
-          v-for="(item, index) in items"
-          @dblclick="openPSWP(index)"
-          :key="+item.id + index">
 
-        <imgItem :img="item" v-if="swiperItem === 'itemImg'"/>
+  <div class="customSwiper">
+    <div class="customSwiper__caption" v-if="caption !== ''">{{caption}}</div>
+    <div class="customSwiper__swiper swiper-container"
+         v-swiper:carSwiper="swiperOption">
+      <ul class="customSwiper__wrapper swiper-wrapper">
+        <li class="customSwiper__swiperSlide swiper-slide"
+            v-for="(item, index) in items"
+            @dblclick="open(index, item.id)"
+            :key="+item.id + index">
 
-      </li>
+          <imgItem :img="item" v-if="swiperItem === 'itemImg'"/>
+          <postItem :item="item" v-if="swiperItem === 'postItem'"/>
 
-    </ul>
+        </li>
 
+      </ul>
 
-
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -33,7 +37,13 @@
         default() {
           return [];
         }
-      }
+      },
+      caption:  {
+        type: String,
+        default() {
+          return ''
+        }
+      },
     },
 
     data() {
@@ -61,8 +71,13 @@
     },
 
     methods: {
-      openPSWP(index) {
-        this.$emit('openPSWP', index);
+      open(index, id) {
+        if (this.swiperItem === 'itemImg') {
+          this.$emit('openPSWP', index);
+        }
+        if (this.swiperItem === 'postItem') {
+          this.$emit('openFeed', id);
+        }
       }
 
     }
@@ -74,6 +89,16 @@
 <style lang="scss">
   .customSwiper {
     width: 100%;
+
+    &__swiper {
+      width: 100%;
+    }
+
+    &__caption {
+      margin-bottom: 10px;
+      font-weight: 800;
+      font-size: 18px;
+    }
 
     &__wrapper {
        list-style: none;
