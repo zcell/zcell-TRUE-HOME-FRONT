@@ -3,18 +3,21 @@
         :class="{'disabled' : isSending}"
         ref="importFile">
     <template v-if="!isSending">
-      <svg-icon class="importFile__svg"
-                name=""/>
+
       <div class="importFile__text">
-        Перетащите файл сюда или загрузите для импорта
+        <svg-icon class="importFile__svg "
+                  name="import"/>
+        Перетащите файл сюда или &nbsp;
+        <label for="fileElem" class="importFile__label"> выберите файл</label>
       </div>
+
       <input type="file"
              id="fileElem"
              multiple
              @change="handleDrop"
              class="importFile__input"
              accept=".xls, .avi, .mov, .mp4, .doc, .docx, .xls, .odt, .png, .jpeg, .jpg">
-      <label for="fileElem" class="addBtn">Выбрать файл</label>
+
     </template>
     <template v-else>
       <svg-icon class="importFile__svg importFile__svg--load"
@@ -75,7 +78,7 @@
 
         let dt = (e.dataTransfer || event.target);
         let files = dt.files;
-        let sendFiles= [];
+        let sendFiles = [];
 
 
         Array.prototype.forEach.call(files, file => {
@@ -90,9 +93,6 @@
         this.$emit('import', sendFiles);
 
 
-
-
-
       }
     }
   }
@@ -104,14 +104,18 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 100%;
-    min-height: 300px;
 
-    background: #F6F9FB;
-    border: 1px dashed #28A2E1;
+    min-height: 96px;
+    min-width: 450px;
+    width: 100%;
+    max-width: 500px;
+
+    background: $white;
     box-sizing: border-box;
-    border-radius: 2px;
     transition: all ease .2s;
+
+    border: 2px dashed #DDDDDD;
+    border-radius: 10px;
 
     &.disabled {
       pointer-events: none;
@@ -122,9 +126,9 @@
     }
 
     &__svg {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 20px;
+      width: 20px;
+      height: 18px;
+      margin-right: 20px;
 
 
       &--load {
@@ -132,14 +136,21 @@
       }
     }
 
+    &__label {
+      color: $primaryColor;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
     &__text {
-      font-size: 22px;
+      display: flex;
+      align-items: center;
+
+      font-weight: 600;
       text-align: center;
       letter-spacing: -0.5px;
       color: #B3B6B8;
 
-      max-width: 314px;
-      margin-bottom: 30px;
 
       &--big {
         margin-bottom: 0;

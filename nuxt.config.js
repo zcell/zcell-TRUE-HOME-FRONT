@@ -70,6 +70,7 @@ export default {
     '~/plugins/debounce',
     '~/plugins/moment',
     '~/plugins/customPlugins',
+    '~/plugins/multiselect',
     '~/plugins/declOfNum',
   ],
   /*

@@ -1,0 +1,174 @@
+.multiselectWrapper {
+  position: relative;
+  padding-bottom: 20px;
+  min-width: 200px;
+  user-select: none;
+
+  .multiselect {
+
+    &--active {
+      pointer-events: none;
+
+      .multiselect__content-wrapper {
+        pointer-events: all;
+      }
+    }
+  }
+
+  &__label {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  &__error {
+    position: absolute;
+    left: 0;
+    bottom: 3px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    color: $red;
+    font-size: 11px;
+  }
+}
+
+.multiselect {
+  color: $black;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+
+  &__tags {
+    min-height: 46px;
+    padding: 14px 40px 12px 24px;
+
+    border-radius: 6px;
+    border-color: $grey;
+    outline: none;
+
+    &:focus {
+      border-color: #2F75EC;
+    }
+  }
+
+  &__tagsItem {
+    position: relative;
+
+    &:after {
+      content: ', ';
+      position: relative;
+    }
+
+    &:last-of-type:after {
+      display: none;
+    }
+  }
+
+  &__placeholder,
+  &__input,
+  &__single {
+    min-height: auto;
+    margin: 0;
+    padding: 0;
+
+    font-size: 14px;
+    line-height: 1.2;
+    vertical-align: top;
+  }
+
+  &__placeholder {
+    color: $grey;
+  }
+
+  &__single {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &__caret {
+    position: absolute;
+    right: 20px;
+    top: 49%;
+    transform: translateY(-50%);
+
+    transition: transform .15s ease;
+  }
+
+  &--active .multiselect__caret {
+    transform: translateY(-50%) rotate(-180deg);
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 24px;
+
+
+    color: $grey;
+
+    &--selected {
+      position: relative;
+      font-weight: inherit;
+      background-color: $white;
+    }
+
+    &--highlight {
+      background-color: $grey;
+      color: $black;
+    }
+
+    &--selected,
+    &--highlight.multiselect__option--selected {
+     // background-image: url('/img/checklist.svg');
+      background-repeat: no-repeat;
+      background-position: right 24px top 15px;
+    }
+
+    &--highlight.multiselect__option--selected {
+      background-color: $grey;
+      color: $black;
+    }
+  }
+
+  &__optionColor {
+    position: relative;
+    margin: -3px 13px -3px 0;
+    display: inline-block;
+
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+  }
+
+  &__optionIcon {
+    position: relative;
+    margin: -3px 13px -3px 0;
+
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+  }
+
+  &__caretSvg {
+    display: block;
+    width: 11px;
+    height: 8px;
+    fill: #212121;
+
+    transition: fill .2s ease;
+  }
+}

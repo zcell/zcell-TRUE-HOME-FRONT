@@ -19,6 +19,7 @@ import like from "../components/btn/like";
 import dislike from "../components/btn/dislike";
 import SlideUpDown from 'vue-slide-up-down'
 import customInput from '~/components/input/index'
+import multiselect from '~/components/multiselect/index'
 
 Vue.component('slide-up-down', SlideUpDown);
 Vue.component('customBtn', btn);
@@ -40,4 +41,5 @@ Vue.component('subCaption', subCaption);
 Vue.component('sideBar', sideBar);
 Vue.component('customInput', customInput);
 Vue.component('customTextarea', customTextarea);
+Vue.component('multiselect', multiselect);
 

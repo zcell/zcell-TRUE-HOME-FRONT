@@ -6,6 +6,11 @@
     <customTextarea v-model="textarea"/>
     <customTextarea v-model="textarea" text-error="asd"/>
     <hr/>
+    <multiselect :options="options"
+                 v-model="selected"
+                 @input=""
+                 label="Привод"/>
+    <hr/>
     <customBtn>
       Add Button
     </customBtn>
@@ -35,6 +40,21 @@
       return {
         input: '',
         textarea: '',
+        selected: {},
+        options: [
+          {
+            id: 1,
+            name: 'asd'
+          },
+          {
+            id: 2,
+            name: 'asqwewed'
+          },
+          {
+            id: 3,
+            name: 'eeeee'
+          }
+        ],
         feed1: {
           swiper: {
             swiperItem: 'itemImg',
