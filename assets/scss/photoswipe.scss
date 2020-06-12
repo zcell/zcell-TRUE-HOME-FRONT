@@ -1,0 +1,7 @@
+$pswp__assets-path: '/img/photoswipe/default-skin/';
+@import "~photoswipe/src/css/main";
+@import "~photoswipe/src/css/default-skin/default-skin";
+
+.pswp__img--placeholder--blank {
+  background-color: transparent;
+}

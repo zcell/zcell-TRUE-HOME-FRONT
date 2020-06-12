@@ -1,7 +1,7 @@
 <template>
   <button :type="type"
           class="btn"
-          @click="$event('emit')">
+          @click="$emit('click')">
     <slot></slot>
   </button>
 </template>
@@ -32,6 +32,8 @@
 
     background-color: $secondaryColor;
     color: $white;
-    font-size: $mainFonts;
+    font-size: $mainFs;
+
+    transition: all .3s;
   }
 </style>

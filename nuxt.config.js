@@ -3,6 +3,7 @@ import settings from './base.config'
 export default {
   server: {
     port: settings.port,
+    host: settings.host,
   },
   mode: 'universal',
   /*
@@ -55,6 +56,9 @@ export default {
     {
       src: '~/plugins/textMask', ssr: false
     },
+    {
+      src: '~/plugins/swiper', ssr: false
+    },
     '~/plugins/vClickOutside',
     '~/plugins/vtooltip',
     '~/plugins/numberFormat',
@@ -90,7 +94,7 @@ export default {
       custom: {
         _scheme: '~/plugins/localAuthStrategy.js',
         endpoints: {
-          login: {url: '/v1/security/auth/login', method: 'post', propertyName: 'data.token'},
+          login: {url: '/v1/security/auth/avatar', method: 'post', propertyName: 'data.token'},
           user: {url: '/v1/security/auth/me', method: 'get', propertyName: false},
           logout: {url: '/v1/security/auth/logout', method: 'post'}
         }

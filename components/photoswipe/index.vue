@@ -43,9 +43,29 @@
 
 
 <script>
-    import events from 'v-photoswipe/src/events'
+    //import events from 'v-photoswipe/src/events'
     import PhotoSwipeFn from 'photoswipe'
     import PhotoSwipeUIDefault from 'photoswipe/dist/photoswipe-ui-default.js'
+
+    const events = [
+      'beforeChange',
+      'afterChange',
+      'imageLoadComplete',
+      'resize',
+      'gettingData',
+      'mouseUsed',
+      'initialZoomIn',
+      'initialZoomInEnd',
+      'initialZoomOut',
+      'initialZoomOutEnd',
+      'parseVerticalMargin',
+      'close',
+      'unbindEvents',
+      'destroy',
+      'updateScrollOffset',
+      'preventDragEvent',
+      'shareLinkClick'
+    ];
 
     export default {
         name: 'v-photoswipe',

@@ -2,6 +2,8 @@
 @import "vars";
 @import "mixins";
 @import "plugins";
+@import "swiper";
+@import "photoswipe";
 
 
 * {
@@ -68,6 +70,7 @@ li, ul {
 }
 
 button {
+  font-family: $mainFonts;
     border: 0;
     background: none;
     box-shadow: none;
