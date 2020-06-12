@@ -1,0 +1,17 @@
+@mixin below($width, $orientation: 'width') {
+    @media screen and (max-#{$orientation}: $width - 1px) {
+        @content;
+    }
+}
+
+@mixin above($width, $orientation: 'width') {
+    @media screen and (min-#{$orientation}: $width) {
+        @content;
+    }
+}
+
+@mixin between($minWidth, $maxWidth, $orientation: 'width') {
+    @media screen and (min-#{$orientation}: $minWidth) and (max-#{$orientation}: $maxWidth) {
+        @content;
+    }
+}

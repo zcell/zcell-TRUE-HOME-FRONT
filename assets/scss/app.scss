@@ -1,0 +1,123 @@
+@import "fonts";
+@import "vars";
+@import "mixins";
+@import "plugins";
+
+
+* {
+    outline: none;
+    box-sizing: border-box;
+}
+
+html {
+    position: relative;
+}
+
+h1 {
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+figure {
+    margin: 0;
+}
+
+body {
+    position: relative;
+    display: flex;
+    max-height: 1000000px;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+
+    font-family: $mainFonts;
+    font-size: $mainFs;
+    font-weight: 400;
+    color: $black;
+    line-height: 1.4;
+  //  background-color: #DEE3E9;
+    overflow-y: scroll;
+
+}
+
+p {
+    margin: 0;
+    font-size: $mainFs;
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+    outline: none;
+    cursor: pointer;
+}
+
+img {
+    vertical-align: middle;
+    max-width: 100%;
+    height: auto;
+
+}
+
+li, ul {
+    cursor: default;
+    padding: 0;
+    margin: 0;
+}
+
+button {
+    border: 0;
+    background: none;
+    box-shadow: none;
+    cursor: pointer;
+    text-align: left;
+
+    padding: 0;
+}
+
+input {
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+input[type='text'],
+input[type='number'],
+textarea {
+
+    //resize: none;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="number"]:hover,
+input[type="number"]:focus {
+    -moz-appearance: number-input;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+
+//
+//.page-enter-active, .page-leave-active {
+//    transition: opacity .2s;
+//}
+//.page-enter, .page-leave-active {
+//    opacity: 0;
+//}
+
+
