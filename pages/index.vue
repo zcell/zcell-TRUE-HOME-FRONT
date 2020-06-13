@@ -1,19 +1,33 @@
 <template>
-  <div class="page">
+  <div class="page" id="main">
     <div class="container">
       <div class="page__swiper">
-        <customSwiper :items="slides"
-                      swiperItem="postItem"
-                      caption="Актуально"
-                      class="page__mainSwiper"
-                      @openFeed="$emit('openFeed', {id: $event})"/>
+
+        <div class="customSwiper page__mainSwiper">
+          <div class="customSwiper__caption">Актуально</div>
+          <div class="customSwiper__swiper swiper-container"
+               v-swiper:carSwiper="swiperOption">
+            <ul class="customSwiper__wrapper swiper-wrapper">
+              <li class="customSwiper__swiperSlide swiper-slide"
+                  v-for="(item, index) in slides"
+                  @dblclick=""
+                  :key="+item.id + index">
+
+                <postItem :item="item" class="bc-white"/>
+              </li>
+
+            </ul>
+
+          </div>
+        </div>
       </div>
 
 
-      <div class="page__content" id="page__content">
+      <div class="page__content"
+           id="page__content">
         <sideBar />
 
-        <div class="page__feeds" >
+        <div class="page__feeds">
           <feed @openPSWP="openPSWP($event)"
                 class="page__feed"
                 @openFeed=""
@@ -39,11 +53,32 @@
                                   :items="photos"
                                   :options="PSWOptions"
                                   @close="hidePhotoSwipe()"/>
+
+    <vue-modal name="modal__auth"
+               class="modal widget__modal"
+               height="auto"
+               width="370px"
+               :scrollable="false"
+               :adaptive="true"
+               @before-open="">
+      <div class="modal__boxInner">
+        <button type="button"
+                class="modal__close"
+                @click="$modal.hide('modal__auth')">
+          <svg-icon class="modal__closeSvg" name="close"/>
+        </button>
+
+        <modalAuth />
+
+      </div>
+    </vue-modal>
+    <scrollToTop id="#main"/>
   </div>
 </template>
 
 <script>
 
+  import Errors from '~/core/Errors'
 
   export default {
     name: 'index',
@@ -51,6 +86,22 @@
 
     data() {
       return {
+        swiperOption: {
+          loop: false,
+          slidesPerView: 'auto',
+          spaceBetween: 20,
+          // threshold: 15,
+          // longSwipesRatio: 0.7,
+          freeMode: true,
+          freeModeMomentum: false,
+          watchOverflow: true,
+          // preventClicksPropagation: false,
+          // preventClicks: true,
+          on: {
+            init: () => {
+            },
+          }
+        },
         slides: [
           {
             caption: 'Уборка мусора',
@@ -119,6 +170,7 @@
         feed2: {
           swiper: {
             swiperItem: 'postItem',
+            caption: 'Собрание жильцов',
             slides: [
               {
                 caption: 'Уборка мусора',
@@ -150,10 +202,15 @@
           bgOpacity: 0.65,
           index: 1,
         },
+
+        isSending: false,
       }
     },
 
     methods: {
+
+
+
       openPSWP(e) {
 
         // this.photos = images.map(x => ({...x, w: x.dimensions.width, h: x.dimensions.height, src: x.thumbOrigin2x}));
@@ -168,7 +225,7 @@
 
       hidePhotoSwipe() {
         this.PSWisOpen = false;
-      }
+      },
     },
 
     head() {

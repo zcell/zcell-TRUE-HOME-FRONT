@@ -1,4 +1,4 @@
 import Vue from 'vue'
 import VModal from 'vue-js-modal/dist/ssr.index'
 
-Vue.use(VModal, { componentName: "modal-window" });
+Vue.use(VModal, { componentName: "vue-modal" });

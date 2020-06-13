@@ -7,6 +7,8 @@
 @import "default";
 @import "page";
 @import "multiselectCustom";
+@import "modal";
+@import "checkbox";
 
 
 * {
@@ -79,7 +81,7 @@ button {
     box-shadow: none;
     cursor: pointer;
     text-align: left;
-
+  font-size: $mainFs;
     padding: 0;
 }
 

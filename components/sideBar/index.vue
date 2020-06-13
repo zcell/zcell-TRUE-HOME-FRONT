@@ -6,109 +6,154 @@
              :scroll-affix="true"
              relative-element-selector="#page__content">
 
-        <div class="sideBar__content">
-          <customBtn @click="" class="sideBar__btn">
-            Создать публикацию
-          </customBtn>
 
-          <div class="sideBar__menu">
-            <div class="sideBar__menuCaption">
-              Мой дом
-            </div>
-            <div class="sideBar__menuItems">
+          <div class="sideBar__content">
+            <customBtn @click="$router.push({name: 'add'})" class="sideBar__btn">
+              Создать публикацию
+            </customBtn>
+
+            <div class="sideBar__tab">
+
               <button type="button"
-                      @click=""
-                      class="sideBar__menuItem">
-                <svg-icon class="sideBar__menuItemSvg"
-                          name="agenda"/>
-                <div class="sideBar__menuItemCaption">
-                  Повестка дня
-                </div>
-                <div class="sideBar__menuCount">
-                  +4
-                </div>
+                      @click="changeTab(10)"
+                      :class="{'isActive' : tabActive === 10}"
+                      class="sideBar__tabBtn">
+                Мой дом
               </button>
 
               <button type="button"
-                      @click=""
-                      class="sideBar__menuItem">
-                <svg-icon class="sideBar__menuItemSvg"
-                          name="meeting"/>
-                <div class="sideBar__menuItemCaption">
-                  Собрания
-                </div>
-                <div class="sideBar__menuCount">
-                  +7
-                </div>
-              </button>
-
-              <button type="button"
-                      @click=""
-                      class="sideBar__menuItem">
-                <svg-icon class="sideBar__menuItemSvg"
-                          name="request"/>
-                <div class="sideBar__menuItemCaption">
-                  Мои заявки
-                </div>
-                <div class="sideBar__menuCount">
-                  +43
-                </div>
+                      :class="{'isActive' : tabActive === 20}"
+                      @click="changeTab(20)"
+                      class="sideBar__tabBtn">
+                Город
               </button>
             </div>
 
+
+            <div class="sideBar__menu">
+              <div class="sideBar__menuCaption">
+                Мой дом
+              </div>
+              <div class="sideBar__menuItems">
+                <button type="button"
+                        @click=""
+                        class="sideBar__menuItem">
+                  <svg-icon class="sideBar__menuItemSvg"
+                            name="agenda"/>
+                  <div class="sideBar__menuItemCaption">
+                    Повестка дня
+                  </div>
+                  <div class="sideBar__menuCount">
+                    +4
+                  </div>
+                </button>
+
+                <button type="button"
+                        @click=""
+                        class="sideBar__menuItem">
+                  <svg-icon class="sideBar__menuItemSvg"
+                            name="meeting"/>
+                  <div class="sideBar__menuItemCaption">
+                    Собрания
+                  </div>
+                  <div class="sideBar__menuCount">
+                    +7
+                  </div>
+                </button>
+
+                <button type="button"
+                        @click=""
+                        class="sideBar__menuItem">
+                  <svg-icon class="sideBar__menuItemSvg"
+                            name="request"/>
+                  <div class="sideBar__menuItemCaption">
+                    Мои заявки
+                  </div>
+                  <div class="sideBar__menuCount">
+                    +43
+                  </div>
+                </button>
+              </div>
+
+            </div>
+
+            <div class="sideBar__menu">
+              <div class="sideBar__menuCaption">
+                Публичные обращения
+              </div>
+              <div class="sideBar__menuItems">
+                <button type="button"
+                        @click=""
+                        class="sideBar__menuItem">
+                  <svg-icon class="sideBar__menuItemSvg"
+                            name="lamp"/>
+                  <div class="sideBar__menuItemCaption">
+                    Идея
+                  </div>
+                  <div class="sideBar__menuCount">
+                    +4
+                  </div>
+                </button>
+
+                <button type="button"
+                        @click=""
+                        class="sideBar__menuItem">
+                  <svg-icon class="sideBar__menuItemSvg"
+                            name="plan"/>
+                  <div class="sideBar__menuItemCaption">
+                    План
+                  </div>
+                  <div class="sideBar__menuCount">
+                    +7
+                  </div>
+                </button>
+
+                <button type="button"
+                        @click=""
+                        class="sideBar__menuItem">
+                  <svg-icon class="sideBar__menuItemSvg"
+                            name="realization"/>
+                  <div class="sideBar__menuItemCaption">
+                    Реализация
+                  </div>
+                  <div class="sideBar__menuCount">
+                    +43
+                  </div>
+                </button>
+              </div>
+
+            </div>
           </div>
 
-          <div class="sideBar__menu">
-            <div class="sideBar__menuCaption">
-              Публичные обращения
-            </div>
-            <div class="sideBar__menuItems">
-              <button type="button"
-                      @click=""
-                      class="sideBar__menuItem">
-                <svg-icon class="sideBar__menuItemSvg"
-                          name="lamp"/>
-                <div class="sideBar__menuItemCaption">
-                  Идея
-                </div>
-                <div class="sideBar__menuCount">
-                  +4
-                </div>
-              </button>
 
-              <button type="button"
-                      @click=""
-                      class="sideBar__menuItem">
-                <svg-icon class="sideBar__menuItemSvg"
-                          name="plan"/>
-                <div class="sideBar__menuItemCaption">
-                  План
-                </div>
-                <div class="sideBar__menuCount">
-                  +7
-                </div>
-              </button>
-
-              <button type="button"
-                      @click=""
-                      class="sideBar__menuItem">
-                <svg-icon class="sideBar__menuItemSvg"
-                          name="realization"/>
-                <div class="sideBar__menuItemCaption">
-                  Реализация
-                </div>
-                <div class="sideBar__menuCount">
-                  +43
-                </div>
-              </button>
-            </div>
-
+          <div class="sideBar__content">
+            <a class="sideBar__promo"
+               target="_blank"
+               href="https://www.instagram.com/p/CANuo0uncCI/">
+              <img src="/img/megafon.png"
+                   srcset="/img/megafon.png 1.5x"
+                   class="sideBar__promoImg"
+                   title="Конкурс от Мегафон ТВ"
+                   alt="Конкурс от Мегафон ТВ">
+              <div class="sideBar__promoTitle">Конкурс от Мегафон ТВ</div>
+              <div class="sideBar__promoText">Давайте делиться своими открытиями!</div>
+            </a>
           </div>
-        </div>
 
         <div class="sideBar__content">
-          БЛОК ДЛЯ РЕКЛАМЫ
+          <a class="sideBar__promo"
+             target="_blank"
+             href="https://truefood-cms.ru">
+            <img src="/img/truefood.png"
+                 srcset="/img/truefood.png 1.5x"
+                 class="sideBar__promoImg"
+                 title="Платформа True Food"
+                 alt="Платформа True Food">
+            <div class="sideBar__promoTitle">Платформа True Food</div>
+            <div class="sideBar__promoText">Онлайн-витрина доставки еды за 24 часа!</div>
+          </a>
         </div>
+
 
       </affix>
     </client-only>
@@ -124,6 +169,15 @@
         options: {
           top: 30,
           bottom: 50,
+        },
+        tabActive: 10,
+      }
+    },
+
+    methods: {
+      changeTab(id) {
+        if (this.tabActive !== id) {
+          this.tabActive = id;
         }
       }
     }
@@ -139,6 +193,74 @@
 
     max-width: 260px;
     position: relative;
+
+    &__tab {
+      width: 100%;
+      height: 44px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      background: $greyBlue;
+      padding: 3px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    &__tabBtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100px;
+      height: 100%;
+      transition: all .3s;
+
+      background-color: transparent;
+      font-weight: 600;
+      border-radius: 10px;
+
+
+      &.isActive {
+        color: $secondaryColor;
+        background-color: $white;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    &__promo {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    &__promoImg {
+      height: 170px;
+      margin-bottom: 10px;
+    }
+
+    &__promoTitle {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    &__promoText {
+      max-height: 40px;
+      height: 100%;
+      color: $grey;
+
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      word-wrap: break-word;
+      word-break: break-word;
+      line-break: auto;
+      -webkit-hyphens: manual;
+      -ms-hyphens: manual;
+      hyphens: manual;
+      overflow: hidden;
+    }
 
     &__menu {
       width: 100%;
@@ -178,11 +300,15 @@
       border-radius: 10px;
       height: 48px;
       padding: 0 8px;
-      margin-bottom: 10px;
 
-      &:last-child {
-        margin-bottom: 0;
+      &.isActive {
+        background-color: $greyBlue;
+
+        .sideBar__menuItemSvg {
+          fill: $black;
+        }
       }
+
 
       &:hover {
         background-color: $greyBlue;
@@ -232,6 +358,10 @@
       &.affix-bottom {
         left: 0 !important;
       }
+
+      /*&.affix {*/
+      /*  top: 30px !important;*/
+      /*}*/
     }
 
     &__content {
@@ -244,6 +374,10 @@
       border-radius: 20px;
       padding: 20px;
       margin-bottom: 20px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
   }

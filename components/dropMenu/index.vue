@@ -39,11 +39,12 @@
     right: -15px;
     top: 40px;
     background-color: $white;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 10px 0;
     width: 230px;
     z-index: 10;
     border: 1px solid $greyBlue;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.1);
 
 
     &:before {
@@ -58,6 +59,7 @@
       background-color: $white;
       border-top: 1px solid $greyBlue;
       border-left: 1px solid $greyBlue;
+      box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.1);
     }
 
 
@@ -69,13 +71,10 @@
       width: 100%;
 
       font-size: 13px;
-      margin-bottom: 14px;
       padding: 0 20px;
       transition: all .3s;
 
-      &:last-child {
-        margin-bottom: 0;
-      }
+
 
       &:hover {
         background-color: $greyBlue;

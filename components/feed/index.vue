@@ -42,9 +42,12 @@
     <div class="feed__text">
       {{feed.text}}
     </div>
+    <voting />
+    <feedFiles :files="files"/>
 
     <customSwiper :items="feed.swiper.slides"
                   :swiperItem="feed.swiper.swiperItem"
+                  :caption="feed.swiper.caption"
                   class="feed__swiper"
                   @openFeed="$emit('openFeed', {id: $event})"
                   @openPSWP="$emit('openPSWP', {index: $event, items: feed.swiper.slides})"/>
@@ -87,6 +90,20 @@
 
     data() {
       return {
+        files: [
+          {
+            name: 'Отчет в эксель за 14.09.2020.xls',
+            id: 1,
+            size: 34323,
+            url: 'asd/asd'
+          },
+          {
+            name: 'Отчет в эксель за 14.09.2020.xls',
+            id: 2,
+            size: 34323,
+            url: 'asd/asd'
+          }
+          ],
         showComments: true,
         dropMenu: {
           handler: this.handlerDropMenu,

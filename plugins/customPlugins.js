@@ -3,6 +3,8 @@ import btn from '~/components/btn/index'
 import customTextarea from '~/components/input/textarea'
 import comments from '~/components/feed/comments'
 import comment from '~/components/feed/comment'
+import voting from '~/components/feed/voting'
+import feedFiles from '~/components/feed/files'
 import subCaption from '~/components/feed/subCaption'
 import actionBtn from '~/components/btn/action'
 import avatar from '~/components/avatar/index'
@@ -20,6 +22,12 @@ import dislike from "../components/btn/dislike";
 import SlideUpDown from 'vue-slide-up-down'
 import customInput from '~/components/input/index'
 import multiselect from '~/components/multiselect/index'
+import modalAuth from '~/components/modals/index'
+import scrollToTop from '~/components/scrollToTop/index'
+import previewFiles from '~/components/importFile/previewFiles'
+import greyBtn from '~/components/btn/grey'
+import radioBtn from '~/components/input/radioBtn'
+import dataPicker from '~/components/dataPicker/index'
 
 Vue.component('slide-up-down', SlideUpDown);
 Vue.component('customBtn', btn);
@@ -42,4 +50,12 @@ Vue.component('sideBar', sideBar);
 Vue.component('customInput', customInput);
 Vue.component('customTextarea', customTextarea);
 Vue.component('multiselect', multiselect);
+Vue.component('modalAuth', modalAuth);
+Vue.component('scrollToTop', scrollToTop);
+Vue.component('previewFiles', previewFiles);
+Vue.component('greyBtn', greyBtn);
+Vue.component('radioBtn', radioBtn);
+Vue.component('dataPicker', dataPicker);
+Vue.component('feedFiles', feedFiles);
+Vue.component('voting', voting);
 

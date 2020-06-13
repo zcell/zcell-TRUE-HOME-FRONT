@@ -1,13 +1,13 @@
 <template>
   <div class="textarea" :class="{'disabled' : disabled, 'is-error' : textError}">
-    <div class="textarea__name">
-      {{name}}
+    <div class="textarea__name" v-if="title != ''">
+      {{title}}
     </div>
     <textarea class="textarea__textarea"
               :value="value"
               @input="$emit('input', $event.target.value)"
               @click="$emit('click')"
-              placeholder="placeholder"
+              :placeholder="placeholder"
               v-autosize
               rows="5">
             </textarea>
@@ -20,7 +20,7 @@
     name: "textareaCustom",
     props: {
       value: {},
-      name: {
+      title: {
         type: String,
         default() {
           return 'title';

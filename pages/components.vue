@@ -8,6 +8,7 @@
     <hr/>
     <multiselect :options="options"
                  v-model="selected"
+                 :allowEmpty="false"
                  @input=""
                  label="Привод"/>
     <hr/>

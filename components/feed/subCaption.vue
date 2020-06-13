@@ -26,6 +26,8 @@
     align-items: center;
     padding: 8px 10px;
 
+    font-weight: 800;
+
     background-color: #FFE99A;
     border-radius: 10px;
 

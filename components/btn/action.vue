@@ -23,6 +23,7 @@
 
 <style lang="scss">
   .actionBtn {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,11 +35,21 @@
     transition: all .3s;
 
     &.isBell {
-      .actionBtn__svg {
-        fill: $secondaryColor !important;
-      }
 
+      &:before {
+        position: absolute;
+        z-index: 2;
+        content: '';
+        top: 12px;
+        right: 12px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color:  $secondaryColor;
+      }
     }
+
+
 
     &.isActive {
         background-color: $secondaryColor !important;

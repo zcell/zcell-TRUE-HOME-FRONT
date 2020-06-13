@@ -34,6 +34,7 @@
     background-color: $secondaryColor;
     color: $white;
     font-size: $mainFs;
+    font-weight: 600;
 
     transition: all .3s;
 

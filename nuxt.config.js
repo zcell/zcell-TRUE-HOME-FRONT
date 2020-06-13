@@ -96,9 +96,9 @@ export default {
       custom: {
         _scheme: '~/plugins/localAuthStrategy.js',
         endpoints: {
-          login: {url: '/v1/security/auth/avatar', method: 'post', propertyName: 'data.token'},
-          user: {url: '/v1/security/auth/me', method: 'get', propertyName: false},
-          logout: {url: '/v1/security/auth/logout', method: 'post'}
+          login: {url: 'auth/login', method: 'post', propertyName: 'token'},
+          user: {url: 'auth/me', method: 'get', propertyName: false},
+          logout: {url: 'auth/logout', method: 'post'}
         }
       }
     },
@@ -107,7 +107,7 @@ export default {
       login: '/',
       logout: '/',
       callback: false,
-      home: '/home'
+      home: false
     }
   },
 

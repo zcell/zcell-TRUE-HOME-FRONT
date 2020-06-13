@@ -1,6 +1,7 @@
+
 .multiselectWrapper {
   position: relative;
-  padding-bottom: 20px;
+
   min-width: 200px;
   user-select: none;
 
@@ -41,134 +42,140 @@
     color: $red;
     font-size: 11px;
   }
-}
 
-.multiselect {
-  color: $black;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-
-  &__tags {
-    min-height: 46px;
-    padding: 14px 40px 12px 24px;
-
-    border-radius: 6px;
-    border-color: $grey;
-    outline: none;
-
-    &:focus {
-      border-color: #2F75EC;
-    }
-  }
-
-  &__tagsItem {
-    position: relative;
-
-    &:after {
-      content: ', ';
-      position: relative;
-    }
-
-    &:last-of-type:after {
-      display: none;
-    }
-  }
-
-  &__placeholder,
-  &__input,
-  &__single {
-    min-height: auto;
-    margin: 0;
-    padding: 0;
-
+  .multiselect {
+    color: $black;
     font-size: 14px;
-    line-height: 1.2;
-    vertical-align: top;
-  }
+    font-weight: 500;
+    cursor: pointer;
 
-  &__placeholder {
-    color: $grey;
-  }
+    &--active .multiselect__placeholder {
+      display: block;
+    }
 
-  &__single {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
+    &__tags {
+      min-height: 48px;
+      padding: 15px 40px 11px 20px;
 
-  &__caret {
-    position: absolute;
-    right: 20px;
-    top: 49%;
-    transform: translateY(-50%);
+      border-radius: 10px;
+      outline: none;
+      border: 1px solid #DDDDDD;
 
-    transition: transform .15s ease;
-  }
+      &:focus {
+        border-color: #2F75EC;
+      }
+    }
 
-  &--active .multiselect__caret {
-    transform: translateY(-50%) rotate(-180deg);
-  }
-
-  &__option {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding-left: 24px;
-
-
-    color: $grey;
-
-    &--selected {
+    &__tagsItem {
       position: relative;
-      font-weight: inherit;
-      background-color: $white;
+
+      &:after {
+        content: ', ';
+        position: relative;
+      }
+
+      &:last-of-type:after {
+        display: none;
+      }
     }
 
-    &--highlight {
-      background-color: $grey;
-      color: $black;
+    &__placeholder,
+    &__input,
+    &__single {
+      min-height: auto;
+      margin: 0;
+      padding: 0;
+
+      font-size: 14px;
+      line-height: 1.2;
+      vertical-align: top;
     }
 
-    &--selected,
-    &--highlight.multiselect__option--selected {
-     // background-image: url('/img/checklist.svg');
-      background-repeat: no-repeat;
-      background-position: right 24px top 15px;
+    &__placeholder {
+      color: $grey;
     }
 
-    &--highlight.multiselect__option--selected {
-      background-color: $grey;
-      color: $black;
+    &__single {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
     }
-  }
 
-  &__optionColor {
-    position: relative;
-    margin: -3px 13px -3px 0;
-    display: inline-block;
+    &__caret {
+      position: absolute;
+      right: 20px;
+      top: 49%;
+      transform: translateY(-50%);
 
-    width: 18px;
-    height: 18px;
-    border: 3px solid rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-  }
+      transition: transform .15s ease;
+    }
 
-  &__optionIcon {
-    position: relative;
-    margin: -3px 13px -3px 0;
+    &--active .multiselect__caret {
+      transform: translateY(-50%) rotate(-180deg);
+    }
 
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-  }
+    &__option {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 24px;
 
-  &__caretSvg {
-    display: block;
-    width: 11px;
-    height: 8px;
-    fill: #212121;
 
-    transition: fill .2s ease;
+      color: $grey;
+
+      &--selected {
+        position: relative;
+        font-weight: inherit;
+        background-color: $white;
+      }
+
+      &--highlight {
+        background-color: $grey;
+        color: $black;
+      }
+
+      &--selected,
+      &--highlight.multiselect__option--selected {
+        background-image: url('/img/checklist.svg');
+        background-repeat: no-repeat;
+        background-position: right 24px top 15px;
+      }
+
+      &--highlight.multiselect__option--selected {
+        background-color: $grey;
+        color: $black;
+      }
+    }
+
+    &__optionColor {
+      position: relative;
+      margin: -3px 13px -3px 0;
+      display: inline-block;
+
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+    }
+
+    &__optionIcon {
+      position: relative;
+      margin: -3px 13px -3px 0;
+
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+    }
+
+    &__caretSvg {
+      display: block;
+      width: 11px;
+      height: 8px;
+      fill: #212121;
+
+      transition: fill .2s ease;
+    }
   }
 }
+
+

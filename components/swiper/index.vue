@@ -87,27 +87,5 @@
 </script>
 
 <style lang="scss">
-  .customSwiper {
-    width: 100%;
 
-    &__swiper {
-      width: 100%;
-    }
-
-    &__caption {
-      margin-bottom: 10px;
-      font-weight: 800;
-      font-size: 18px;
-    }
-
-    &__wrapper {
-       list-style: none;
-    }
-
-    &__swiperSlide {
-      width: auto;
-      margin-right: 10px;
-      user-select: none;
-    }
-  }
 </style>

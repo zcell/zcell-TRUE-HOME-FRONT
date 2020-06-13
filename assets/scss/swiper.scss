@@ -1,14 +1,4 @@
-/**
- * Swiper 5.3.8
- * Most modern mobile touch slider and framework with hardware accelerated transitions
- * http://swiperjs.com
- *
- * Copyright 2014-2020 Vladimir Kharlampidi
- *
- * Released under the MIT License
- *
- * Released on: April 24, 2020
- */
+
 
 @font-face {
   font-family: 'swiper-icons';
@@ -531,4 +521,30 @@ button.swiper-pagination-bullet {
   z-index: 0;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+}
+
+
+.customSwiper {
+  width: 100%;
+
+  &__swiper {
+    width: 100%;
+    padding-top: 10px;
+  }
+
+  &__caption {
+    margin-bottom: 5px;
+    font-weight: 800;
+    font-size: 18px;
+  }
+
+  &__wrapper {
+    list-style: none;
+  }
+
+  &__swiperSlide {
+    width: auto;
+    margin-right: 10px;
+    user-select: none;
+  }
 }

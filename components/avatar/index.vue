@@ -1,8 +1,10 @@
 <template>
-  <div class="avatar">
+  <div class="avatar" @click="$emit('click')">
     <img :src="src"
          alt=""
+         v-if="src !== ''"
          class="avatar__img">
+    <span class="avatar__span" v-else>{{nameUser}}</span>
   </div>
 </template>
 
@@ -15,8 +17,30 @@
         default() {
           return '/img/avatar.png'
         }
+      },
+      firstName: {
+        type: String,
+        default() {
+          return 'Николай'
+        }
+      },
+      lastName: {
+        type: String,
+        default() {
+          return 'Шуваев'
+        }
       }
+    },
+
+    computed: {
+      nameUser() {
+          if (this.firstName && this.lastName) {
+            return `${this.firstName[0].toUpperCase()}${this.lastName[0].toUpperCase()}`
+          }
+          return ''
+       }
     }
+
   }
 </script>
 
@@ -35,6 +59,19 @@
     &.mini {
       width: 34px;
       height: 34px;
+    }
+
+    &__span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-weight: 600;
+      color: $white;
+
+      width: 100%;
+      height: 100%;
+      background-color: $primaryColor;
     }
   }
 </style>

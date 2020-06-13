@@ -50,6 +50,15 @@
     background-color: $greyBlue;
     border-radius: 20px;
     cursor: pointer;
+    transition: all .3s;
+
+    &:hover {
+      transform: translateY(-10px);
+    }
+
+    &.bc-white {
+      background-color: $white;
+    }
 
     &__header {
       display: flex;

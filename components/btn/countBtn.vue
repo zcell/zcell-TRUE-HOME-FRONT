@@ -24,6 +24,7 @@
 
 <style lang="scss">
   .countBtn {
+
     display: flex;
     align-items: center;
 

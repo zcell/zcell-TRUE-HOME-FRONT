@@ -1,13 +1,14 @@
 <template>
   <div class="input" :class="{'disabled' : disabled , 'is-error' : textError}">
-    <div class="input__name" v-if="name !== ''">
-      {{name}}
+    <div class="input__name" v-if="title !== ''">
+      {{title}}
     </div>
-    <input :type="type"
-           v-if="type !== 'mask'"
+    <input v-if="!maskActive"
+           :type="type"
            class="input__input"
-           placeholder="placeholder"
+           :placeholder="placeholder"
            :value="value"
+           :name="name"
            @blur="$emit('blur', $event.target.value)"
            @click="$emit('click')"
            @focus="$emit('focus')"
@@ -19,7 +20,8 @@
            v-mask="mask"
            class="input__input"
            :value="value"
-           placeholder="placeholder"
+           :name="name"
+           :placeholder="placeholder"
            @blur="$emit('blur', $event.target.value)"
            @click="$emit('click')"
            @focus="$emit('focus')"
@@ -27,6 +29,13 @@
            :disabled="disabled">
 
     <div class="input__error">{{ textError }}</div>
+    <button type="button"
+            class="input__close"
+            @click="$emit('close')">
+      <svg-icon class="input__closeSvg"
+                name="close"/>
+    </button>
+
   </div>
 </template>
 
@@ -38,6 +47,12 @@
     props: {
       value: {},
       name: {
+        type: String,
+        default() {
+          return '';
+        }
+      },
+      title: {
         type: String,
         default() {
           return 'title';
@@ -72,6 +87,12 @@
           return ''
         }
       },
+      maskActive: {
+        type: Boolean,
+        default() {
+          return false
+        }
+      },
     }
   }
 </script>
@@ -79,6 +100,17 @@
 <style lang="scss">
   .input {
     position: relative;
+
+    &.close {
+      position: relative;
+      .input__input {
+        padding: 17px 45px 17px 20px;
+      }
+
+      .input__close {
+        display: flex;
+      }
+    }
 
     &.disabled {
       .input__input {
@@ -132,6 +164,24 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    &__close {
+      position: absolute;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+
+      width: 15px;
+      height: 15px;
+      right: 20px;
+      bottom: 15px;
+    }
+
+    &__closeSvg {
+      width: 10px;
+      height: 10px;
     }
 
 
