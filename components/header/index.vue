@@ -10,8 +10,8 @@
 
         </div>
         <div class="header__right">
-          <actionBtn svg="bookMarks" class="header__action "/>
-          <actionBtn svg="bell" class="header__action isBell "/>
+          <actionBtn svg="bookMarks" class="header__action" v-if="loggedIn"/>
+          <actionBtn svg="bell" class="header__action isBell"/>
           <div class="header__drop">
             <avatar class="header__avatar"
                     :src="user.avatar"
@@ -138,8 +138,8 @@
     }
 
     &__logo {
-      width: 144px;
-      height: 21px;
+      width: 165px;
+      height: 30px;
     }
 
     &__right {

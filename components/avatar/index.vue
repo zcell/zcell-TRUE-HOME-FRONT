@@ -1,8 +1,8 @@
 <template>
   <div class="avatar" @click="$emit('click')">
-    <img :src="src"
+    <img :src="'https://api.home.true-studio.ru' + src"
          alt=""
-         v-if="src !== ''"
+         v-if="src && src !== ''"
          class="avatar__img">
     <span class="avatar__span" v-else>{{nameUser}}</span>
   </div>
@@ -52,6 +52,7 @@
 
     width: 40px;
     height: 40px;
+    min-width: 40px;
 
     border-radius: 50%;
     overflow: hidden;
@@ -59,6 +60,12 @@
     &.mini {
       width: 34px;
       height: 34px;
+      min-width: 34px;
+    }
+
+    &__img {
+      height: 100%;
+      max-width: none;
     }
 
     &__span {

@@ -2,22 +2,33 @@
   <div class="postItem">
 
     <div class="postItem__header">
-        <avatar class="postItem__avatar mini"/>
-        <div class="postItem__info">
-              <div class="postItem__user">Username</div>
-              <div class="postItem__time">date/time</div>
+
+        <avatar class="postItem__avatar mini"
+                v-if="item.author"
+                :firstName="item.author.first_name"
+                :lastName="item.author.last_name"
+                :src="item.author.avatar"/>
+        <div class="postItem__info"  v-if="item.author">
+              <div class="postItem__user">{{item.author.first_name}} {{item.author.last_name}}</div>
+              <div class="postItem__time"> {{$moment.unix(+item.created_at).format("DD.MM.YYYY HH:mm")}}</div>
         </div>
     </div>
-    <div class="postItem__caption"> {{post.caption}}</div>
+    <div class="postItem__caption"> {{item.title}}</div>
     <div class="postItem__text">
-      {{post.text}}
+      {{item.text}}
     </div>
     <div class="postItem__footer">
-      <countBtn count="180" class="mini disabled"/>
+      <countBtn :count="item.comments" class="mini disabled"/>
 
       <div class="postItem__rating">
-        <like class="postItem__ratingItem mini disabled"/>
-        <dislike class="postItem__ratingItem mini disabled"/>
+
+
+        <like class="postItem__ratingItem mini disabled"
+              :class="{'isActive': item.isLiked}"
+              :count="item.likes"/>
+        <dislike class="postItem__ratingItem mini disabled"
+                 :class="{'isActive': item.isDisliked}"
+                 :count="item.dislikes"/>
       </div>
     </div>
   </div>
@@ -37,7 +48,7 @@
 
     data() {
       return {
-        post: this.item,
+
       }
     }
   }
@@ -45,12 +56,17 @@
 
 <style lang="scss">
   .postItem {
-    width: 220px;
+
     padding: 20px;
     background-color: $greyBlue;
     border-radius: 20px;
     cursor: pointer;
     transition: all .3s;
+    min-height: 248px;
+
+    display: flex;
+    flex-direction: column;
+    width: 220px;
 
     &:hover {
       transform: translateY(-10px);
@@ -92,6 +108,7 @@
     }
 
     &__footer {
+      margin-top: auto;
       width: 100%;
       display: flex;
       align-items: center;

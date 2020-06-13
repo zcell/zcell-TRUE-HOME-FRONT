@@ -43,7 +43,7 @@
     methods: {
       download(file) {
         this.$refs.loadFile.setAttribute('download', `${file.name}`);
-        this.$refs.loadFile.href = 'https://api.home.true-studio.ru' + file.url;
+        this.$refs.loadFile.href = 'https://api.home.true-studio.ru' + file.link;
         this.$refs.loadFile.click();
       }
     }

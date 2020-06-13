@@ -7,41 +7,42 @@
              relative-element-selector="#page__content">
 
 
-          <div class="sideBar__content">
+          <div class="sideBar__content" v-if="loggedIn">
             <customBtn @click="$router.push({name: 'add'})" class="sideBar__btn">
               Создать публикацию
             </customBtn>
 
-            <div class="sideBar__tab">
+            <div class="sideBar__tab" v-if="loggedIn">
 
               <button type="button"
                       @click="changeTab(10)"
-                      :class="{'isActive' : tabActive === 10}"
+                      :class="{'isActive' : filtered.level === 10}"
                       class="sideBar__tabBtn">
-                Мой дом
+                {{user.isHousing ? 'Дом' : 'Мой Дом'}}
               </button>
 
               <button type="button"
-                      :class="{'isActive' : tabActive === 20}"
+                      :class="{'isActive' : filtered.level === 20}"
                       @click="changeTab(20)"
                       class="sideBar__tabBtn">
-                Город
+                {{user.isHousing ? 'Город' : 'Мой город'}}
               </button>
             </div>
 
 
             <div class="sideBar__menu">
               <div class="sideBar__menuCaption">
-                Мой дом
+                {{user.isHousing ? 'Дом' : 'Мой Дом'}}
               </div>
               <div class="sideBar__menuItems">
                 <button type="button"
-                        @click=""
+                        :class="{'isActive': filtered.type === 30}"
+                        @click="changeType(30)"
                         class="sideBar__menuItem">
                   <svg-icon class="sideBar__menuItemSvg"
                             name="agenda"/>
                   <div class="sideBar__menuItemCaption">
-                    Повестка дня
+                    Обсуждения
                   </div>
                   <div class="sideBar__menuCount">
                     +4
@@ -49,7 +50,8 @@
                 </button>
 
                 <button type="button"
-                        @click=""
+                        :class="{'isActive': filtered.type === 20}"
+                        @click="changeType(20)"
                         class="sideBar__menuItem">
                   <svg-icon class="sideBar__menuItemSvg"
                             name="meeting"/>
@@ -62,7 +64,9 @@
                 </button>
 
                 <button type="button"
-                        @click=""
+                        v-if="loggedIn"
+                        :class="{'isActive': filtered.type === 5}"
+                        @click="changeType(5)"
                         class="sideBar__menuItem">
                   <svg-icon class="sideBar__menuItemSvg"
                             name="request"/>
@@ -73,13 +77,27 @@
                     +43
                   </div>
                 </button>
+
+                <button type="button"
+                        :class="{'isActive': filtered.type === 10}"
+                        @click="changeType(10)"
+                        class="sideBar__menuItem">
+                  <svg-icon class="sideBar__menuItemSvg"
+                            name="request"/>
+                  <div class="sideBar__menuItemCaption">
+                    Голосования
+                  </div>
+                  <div class="sideBar__menuCount">
+                    +43
+                  </div>
+                </button>
               </div>
 
             </div>
 
-            <div class="sideBar__menu">
+            <div class="sideBar__menu" v-if="!user.isHousing">
               <div class="sideBar__menuCaption">
-                Публичные обращения
+                Управляющая компания
               </div>
               <div class="sideBar__menuItems">
                 <button type="button"
@@ -88,7 +106,7 @@
                   <svg-icon class="sideBar__menuItemSvg"
                             name="lamp"/>
                   <div class="sideBar__menuItemCaption">
-                    Идея
+                    План работ
                   </div>
                   <div class="sideBar__menuCount">
                     +4
@@ -101,7 +119,7 @@
                   <svg-icon class="sideBar__menuItemSvg"
                             name="plan"/>
                   <div class="sideBar__menuItemCaption">
-                    План
+                    В работе
                   </div>
                   <div class="sideBar__menuCount">
                     +7
@@ -164,20 +182,41 @@
   export default {
     name: "sideBar",
 
+    props: {
+      filter : {}
+    },
+
     data() {
       return {
+        filtered: this.filter,
         options: {
           top: 30,
           bottom: 50,
         },
-        tabActive: 10,
+      }
+    },
+
+    computed: {
+      loggedIn() {
+        return this.$store.getters['loggedIn'];
+      },
+      user() {
+        return this.$store.getters['user'];
       }
     },
 
     methods: {
       changeTab(id) {
-        if (this.tabActive !== id) {
-          this.tabActive = id;
+        if (this.filtered.level !== id) {
+          this.filtered.level = id;
+          this.$emit('change', this.filtered)
+        }
+      },
+
+      changeType(id) {
+        if (this.filtered.type !== id) {
+          this.filtered.type = id;
+          this.$emit('change', this.filtered)
         }
       }
     }

@@ -35,7 +35,7 @@
       placeholder: {
         type: String,
         default() {
-          return 'placeholder';
+          return '';
         }
       },
       disabled: {

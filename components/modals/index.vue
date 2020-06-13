@@ -138,6 +138,31 @@
       </button>
     </template>
 
+    <template v-if="showTemplate === 'sendRegistr'">
+
+      <div class="modal__succes">
+        <svg-icon class="modal__succesSvg"
+                  name="vector"/>
+      </div>
+
+      <div class="modal__title big">
+        Спасибо
+      </div>
+
+      <div class="modal__title">
+        Ваша заявка на регистрацию успешно отправлена
+      </div>
+
+      <div class="modal__text">
+        После обработки заявки, пароль для доступа будет отправлен на телефон указанный при регистрации
+      </div>
+
+      <customBtn @click="$modal.hide('modal__auth')"
+                 class="modal__btn">
+        ОК
+      </customBtn>
+
+    </template>
 
   </div>
 
@@ -165,7 +190,6 @@
         errorForm: new Errors(),
         isSending: false,
         sendReset: false,
-        sendRegistr: false,
       }
     },
 
@@ -195,7 +219,7 @@
         this.isSending = true;
         await this.$axios.post('auth/register', this.reg)
           .then(async (response) => {
-            this.sendRegistr = true;
+            this.showTemplate = 'sendRegistr';
 
           })
           .catch((error) => {

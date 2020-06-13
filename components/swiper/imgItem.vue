@@ -1,9 +1,10 @@
 <template>
   <div class="imgItem"
        @click="$emit('click')">
-    <img :src="img.src"
+    <img :src="'https://api.home.true-studio.ru' + img.link"
          class="imgItem__img"
-         alt="">
+         :title="img.title"
+         :alt="img.name">
   </div>
 </template>
 

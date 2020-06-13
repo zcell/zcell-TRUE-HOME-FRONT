@@ -1,14 +1,14 @@
 <template>
-  <div class="voting">
+  <div class="voting" :class="{'disabled': !isDisabled}">
     <div class="voting__variants">
       <button class="voting__variant"
-              @click=""
-              v-for="(voting, index) in votings"
+              @click="$emit('click', voting)"
+              v-for="(voting, index) in getVotings"
               :key="voting.id">
-        <span class="voting__name">{{voting.name}}</span>
-        <span class="voting__name">{{voting.count}}</span>
+        <span class="voting__name">{{voting.question}}</span>
+        <span class="voting__name">{{voting.answers}}</span>
         <span class="voting__spoler"
-              :style="{width: handlerWidth(voting.count)}"
+              :style="{width: handlerWidth(voting.answers)}"
               :class="{'isFirst': index === 0, 'isLast': index === votings.length - 1}"></span>
       </button>
     </div>
@@ -22,42 +22,57 @@
       votings: {
         type: Array,
         default() {
-          return [
-            {
-              name: 'Да конечно',
-              id: 1,
-              count: 9,
-            },
-            {
-              name: 'Я против',
-              id: 2,
-              count: 7,
-            },
-            {
-              name: 'Только при условии',
-              id: 3,
-              count: 5,
-            },
-            {
-              name: 'Фигня',
-              id: 4,
-              count: 3,
-            }
-          ]
+          return []
+        }
+      },
+      startDate: {
+        type: Number,
+        default() {
+          return false
+        }
+      },
+      dueDate: {
+        type: Number,
+        default() {
+          return false
         }
       }
     },
 
     computed: {
-      maxCount() {
-        return this.votings.reduce((acc, next) => acc + next.count, 0);
 
+
+
+      maxCount() {
+        return this.votings.reduce((acc, next) => acc + next.answers, 0);
+      },
+
+      getVotings() {
+        return this.votings.sort((a, b) => {
+          return (a.answers >= b.answers) ? -1 : 1;
+        });
+      },
+
+      isDisabled() {
+        let start = false;
+        if (this.startDate) {
+          start = (+new Date().getTime() >= this.startDate * 1000 ? true : false)
+        }
+        if (this.dueDate) {
+          let end = false;
+          end = (+new Date().getTime() < this.dueDate * 1000 ? true : false);
+          return start && end
+
+        } else {
+          return start
+        }
       }
+
     },
 
     methods: {
-      handlerWidth(count) {
-          return `${Math.ceil(count / (this.maxCount / 100))}%`
+      handlerWidth(answers) {
+        return `${Math.ceil(answers / (this.maxCount / 100))}%`
       }
     }
   }

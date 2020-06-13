@@ -4,26 +4,33 @@
 
       <div class="feed__headerLeft">
 
-        <avatar class="feed__avatar"/>
+        <avatar class="feed__avatar"
+                :firstName="feed.author.first_name"
+                :lastName="feed.author.last_name"
+                :src="feed.author.avatar"/>
 
         <div class="feed__avatarBox">
           <div class="feed__avatarUser">
-            Username
+            {{feed.author.first_name}} {{feed.author.last_name}}
           </div>
           <div class="feed__avatarTime">
-            date/time
+            {{$moment.unix(+feed.created_at).format("DD.MM.YYYY HH:mm")}}
           </div>
         </div>
 
       </div>
 
       <div class="feed__headerRight">
-        <actionBtn svg="bookMarks" class="feed__action isActive"/>
+        <actionBtn svg="bookMarks"
+                   @click=""
+                   class="feed__action "/>
+        <!--        isActive-->
         <actionBtn svg="options"
                    @click="showDropMeny = !showDropMeny"
                    class="feed__action"/>
         <dropMenu v-click-outside="dropMenu"
                   class="feed__dropMenu"
+                  @click="handlerDropClick($event)"
                   :items="dropMenuItems"
                   v-if="showDropMeny"/>
       </div>
@@ -32,44 +39,71 @@
     </div>
 
     <div class="feed__caption">
-      <span class="feed__span">{{feed.caption}}</span>
+      <span class="feed__span">{{feed.title}}</span>
 
-      <subCaption class="feed__subCaption" text="14.07.20 в 18:00">
+      <subCaption class="feed__subCaption"
+
+                  v-if="feed.start_date && feed.due_date"
+                  :text="`c ${$moment.unix(+feed.start_date).format('DD.MM.YY HH:mm')} по ${$moment.unix(+feed.due_date).format('DD.MM.YY HH:mm')}`">
+        <svg-icon class="subCaption__svg" name="time"/>
+      </subCaption>
+
+      <subCaption class="feed__subCaption"
+                  v-else-if="feed.start_date"
+                  :text="`${$moment.unix(+feed.start_date).format('DD.MM.YY')} в ${$moment.unix(+feed.start_date).format('HH:mm')}`">
         <svg-icon class="subCaption__svg" name="time"/>
       </subCaption>
     </div>
 
-    <div class="feed__text">
-      {{feed.text}}
-    </div>
-    <voting />
-    <feedFiles :files="files"/>
+    <div class="feed__text" v-html="feed.text">
 
-    <customSwiper :items="feed.swiper.slides"
-                  :swiperItem="feed.swiper.swiperItem"
-                  :caption="feed.swiper.caption"
+    </div>
+
+    <voting v-if="+feed.type === 10 && feed.poll && feed.poll.length"
+            :class="{'disabled': !loggedIn}"
+            :start-date="+feed.start_date"
+            @click="getVoting($event)"
+            :due-date="+feed.due_date"
+            :votings="poll"/>
+
+    <feedFiles v-if="getFiles && getFiles.length"
+               :files="getFiles"/>
+
+    <customSwiper :items="getPhotos"
+                  swiperItem="itemImg"
+                  v-if="getPhotos && getPhotos.length"
                   class="feed__swiper"
-                  @openFeed="$emit('openFeed', {id: $event})"
-                  @openPSWP="$emit('openPSWP', {index: $event, items: feed.swiper.slides})"/>
+                  @openPSWP="$emit('openPSWP', {index: $event, items: getPhotos})"/>
+
+    <customSwiper :items="feed.linked"
+                  caption="Связанные публикации"
+                  v-if="feed.linked && feed.linked.length"
+                  swiperItem="postItem"
+                  class="feed__swiper"
+                  @openFeed="$emit('openFeed', {id: $event})"/>
+
 
     <div class="feed__footer">
-      <countBtn count="180"
-                @click="showComments = !showComments"/>
+      <countBtn :count="feed.comments"
+                @click="showComment = !showComment"/>
 
       <div class="feed__rating">
-        <like class="feed__ratingItem"/>
-        <dislike class="feed__ratingItem"/>
+        <like class="feed__ratingItem"
+              @click="sendLike('like')"
+              :class="{'isActive': isLiked, 'disabled' : !loggedIn}"
+              :count="likes"/>
+        <dislike class="feed__ratingItem"
+                 @click="sendLike('dislike')"
+                 :class="{'isActive': isDisliked, 'disabled' : !loggedIn}"
+                 :count="dislikes"/>
       </div>
     </div>
 
-<!--    <slide-up-down :active="showComments"-->
-<!--                   class="">-->
-<!--    -->
-<!--    </slide-up-down>-->
 
-    <template v-if="showComments">
+    <template v-if="showComment">
       <div class="feed__hr"></div>
-      <comments class="feed__comments" />
+      <comments class="feed__comments"
+                :feed-id="this.feed.id"/>
     </template>
 
 
@@ -77,8 +111,13 @@
 </template>
 
 <script>
+  import flash from "../../mixins/flash";
+
   export default {
     name: "feed",
+    mixins: [
+      flash
+    ],
     props: {
       feed: {
         type: Object,
@@ -90,21 +129,12 @@
 
     data() {
       return {
-        files: [
-          {
-            name: 'Отчет в эксель за 14.09.2020.xls',
-            id: 1,
-            size: 34323,
-            url: 'asd/asd'
-          },
-          {
-            name: 'Отчет в эксель за 14.09.2020.xls',
-            id: 2,
-            size: 34323,
-            url: 'asd/asd'
-          }
-          ],
-        showComments: true,
+        poll: this.feed.poll,
+        dislikes: this.feed.dislikes,
+        isDisliked: this.feed.isDisliked,
+        isLiked: this.feed.isLiked,
+        likes: this.feed.likes,
+        showComment: false,
         dropMenu: {
           handler: this.handlerDropMenu,
           middleware: this.middlewareDropMenu,
@@ -115,17 +145,83 @@
         dropMenuItems: [
           {
             id: 1,
-            name: 'Редактировать',
-          },
-          {
-            id: 2,
-            name: 'Удалить'
+            name: 'Копировать ссылку',
           }
-        ]
+        ],
+
       }
     },
 
+    computed: {
+      getFiles() {
+        return this.feed.files.filter(file => !file.type.includes('image'))
+      },
+
+      getPhotos() {
+        return this.feed.files.filter(file => file.type.includes('image'))
+      },
+
+      loggedIn() {
+        return this.$store.getters['loggedIn'];
+      },
+      user() {
+        return this.$store.getters['user'];
+      },
+    },
+
     methods: {
+
+      handlerDropClick(e) {
+         if (+e.id === 1) {
+           navigator.clipboard.writeText(`${location.hostname}?feed_id=${this.feed.id}`)
+         }
+      },
+
+      async sendLike(type) {
+        if (this.loggedIn) {
+          await this.$axios.post(`feed/${type}`, {
+            feed_id: this.feed.id
+          })
+            .then((res) => {
+              this.dislikes = res.data.dislikes;
+              this.isDisliked = res.data.isDisliked;
+              this.isLiked = res.data.isLiked;
+              this.likes = res.data.likes;
+
+
+            })
+            .catch((error) => {
+              console.log(error);
+
+            });
+        }
+      },
+
+      async getVoting(vote) {
+
+        if (this.loggedIn) {
+          await this.$axios.post('feed/vote', {
+            poll_id: this.feed.poll_id, answer: vote.id
+          })
+            .then((res) => {
+              this.poll = res.data;
+              this.showFlash({
+                name: 'save',
+                text: 'Успешно'
+              });
+
+            })
+            .catch((error) => {
+              console.log(error);
+              this.showFlash({
+                name: 'error',
+                text: 'Ошибка - возможно вы уже голосовали'
+              });
+            });
+        }
+
+      },
+
       handlerDropMenu(event, el) {
         this.showDropMeny = false;
       },

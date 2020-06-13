@@ -116,6 +116,15 @@
     font-size: 20px;
     font-weight: 800;
     margin-bottom: 25px;
+
+    &.big {
+      font-size: 30px;
+    }
+  }
+
+  &__text {
+    text-align: center;
+    color: #9DA1A6;
   }
 
   &__input {
@@ -179,6 +188,24 @@
   &__helpSvg {
     width: 44px;
     height: 44px;
+  }
+
+  &__succes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 25px 0 35px;
+    background-color: $secondaryColor;
+  }
+
+  &__succesSvg {
+    width: 34px;
+    height: 26px;
+    stroke: $white;
   }
 
 }

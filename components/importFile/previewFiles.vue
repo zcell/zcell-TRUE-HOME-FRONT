@@ -67,9 +67,11 @@
       border: 1px solid #DDDDDD;
       background-color: $greyBlue;
       border-radius: 10px;
+      overflow: hidden;
     }
 
     &__img {
+      max-width: none;
       height: 100%;
     }
 

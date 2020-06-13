@@ -42,9 +42,9 @@
 
     &.disabled {
       .countBtn__svg {
-        fill: $black !important;
+        fill: $grey !important;
       }
-      color: $black !important;
+      color: $grey !important;
     }
 
     &:hover {

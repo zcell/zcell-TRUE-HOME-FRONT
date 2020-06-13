@@ -1,12 +1,15 @@
 <template>
   <div class="comment" :class="{'isMine' : isMine}">
-    <avatar class="comment__avatar mini"/>
+    <avatar class="comment__avatar mini"
+            :src="comment.user.avatar"
+            :first-name="comment.user.first_name"
+            :last-name="comment.user.last_name"/>
     <div class="comment__body">
       <svg-icon class="comment__arr"
                 name="arrComm"/>
       <div class="comment__header">
-        <div class="comment__user">Username</div>
-        <div class="comment__time">date/time</div>
+        <div class="comment__user">{{comment.user.first_name}} {{comment.user.last_name}}</div>
+        <div class="comment__time" v-if="comment.created_at">{{$moment.unix(+comment.created_at).format('DD.MM.YY HH:mm')}}</div>
 
         <button type="button"
                 v-if="isMine"
@@ -23,8 +26,7 @@
 
       </div>
       <div class="comment__text">
-        Я вот читаю из года в год из десятилетие в десятилетие - постоянно цены растут, а зарплаты- нет. Значит раньше
-        люди жили сказочно богато? Если нищаем, нищаем..
+        {{comment.text}}
       </div>
 
       <div class="comment__footer">
@@ -52,6 +54,12 @@
         type: Boolean,
         default() {
           return false
+        }
+      },
+      comment: {
+        type: Object,
+        default() {
+          return {}
         }
       }
     },
