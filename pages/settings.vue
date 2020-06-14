@@ -284,17 +284,18 @@
 
       async getStatuses() {
 
-        const getRequest = async () => {
+        const getDiscuss = async () => {
           await this.$axios.get('feed/actual?house_id=' + this.home.id)
             .then(res => {
-              this.categories.request.items = res.data;
+              this.categories.discuss.items = res.data;
+
             })
         };
 
-        const getDiscuss = async () => {
+        const getRequest = async () => {
           await this.$axios.get('feed/index?type=40&house_id=' + this.home.id)
             .then(res => {
-              this.categories.discuss.items = res.data;
+              this.categories.request.items = res.data;
             })
         };
 
