@@ -1,7 +1,7 @@
 <template>
   <div class="page" id="main">
     <div class="container">
-      <div class="page__swiper">
+      <div class="page__swiper" v-if="loggedIn">
 
         <div class="customSwiper page__mainSwiper" v-if="actuals && actuals.length">
           <div class="customSwiper__caption">Актуально</div>
@@ -11,7 +11,7 @@
               <li class="customSwiper__swiperSlide swiper-slide"
                   v-for="(item, index) in actuals"
                   @dblclick="openFeed({id:item.id})"
-                  :key="+item.id + index">
+                  :key="+item.id + 'actuals'">
 
                 <postItem :item="item" class="bc-white"/>
               </li>
@@ -111,27 +111,33 @@
       let actuals = [];
 
       let defaultLimit = base.defaultLimit;
+
       const getFeeds = async () => {
-        await $axios.get('feed/index?level=10&limit=' + defaultLimit)
+        await $axios.get('feed/index?level=20&limit=' + defaultLimit)
           .then(res => {
             feeds = res.data;
           })
       };
 
       const getActuals = async () => {
-        await $axios.get('feed/actual?level=10&limit=' + defaultLimit)
+        await $axios.get('feed/actual')
           .then(res => {
             actuals = res.data;
           })
       };
 
+
+
       const promises = [
         getFeeds(),
-        getActuals(),
-      ].map(p => p.catch(e => e));
+      ];
+
+      if (store.getters['loggedIn']) {
+        promises.push(getActuals());
+      }
 
       await Promise.all(
-        promises
+        promises.map(p => p.catch(e => e))
       );
 
       return {
@@ -184,15 +190,18 @@
         isSending: false,
         curFeed: {},
         filter: {
-          level: 10,
-          type: 30
+          level: 20,
+          type: 30,
+          status: 0,
         }
       }
     },
 
     computed: {
       bundleUrl() {
-        let url = `&level=${this.filter.level}${this.filter.type !== 5 ? `&type=${this.filter.type}` : `&author_id=${this.user.id}`}`;
+        let url = `${this.loggedIn ? `&level=${this.filter.level}` : '&level=10'}${![0,5].includes(+this.filter.type) ? `&type=${this.filter.type}` : ''}`+
+          `${+this.filter.type === 5 ? `&author_id=${this.user.id}` : ''}` +
+          `${+this.filter.status !== 0 ? `&status=${this.filter.status}` : ''}`;
 
         return url
       },
@@ -210,13 +219,16 @@
       async changeFilter(e) {
         this.filter = e;
         await this.getFeeds();
-        await this.getActuals();
+        if (this.loggedIn) {
+          await this.getActuals();
+        }
+
       },
 
       async getActuals() {
         this.isSending = true;
 
-        await this.$axios.get(`feed/actual?limit=${this.defaultLimit}${this.bundleUrl}`)
+        await this.$axios.get(`feed/actual`)
           .then(res => {
             this.actuals = res.data;
           })

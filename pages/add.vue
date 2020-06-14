@@ -73,6 +73,26 @@
 
         </div>
 
+        <multiselect :options="linksFeed"
+                     v-model="links"
+                     :searchable="true"
+                     :close-on-select="false"
+                     :options-limit="300"
+                     :limit="3"
+                     :multiple="true"
+                     :max-height="400"
+                     :show-no-results="false"
+                     :hide-selected="true"
+                     @search="asyncFind"
+                     :error="errorForm.get('house_id')"
+                     @open="errorForm.clear('house_id')"
+                     :loading="isSearch"
+                     :internal-search="false"
+                     :allowEmpty="false"
+                     class="page__w100 page__mb30"
+                     @input=""
+                     label="Связанные публикации"/>
+
         <template v-if="[10].includes(type.id)">
           <customInput v-for="(item, index) in poll"
                        v-model="item.questions"
@@ -136,6 +156,9 @@
         title: '',
         text: '',
         visibility: 10,
+        links: [],
+        linksFeed: [],
+        isSearch: false,
         type: {
           id: 30,
           name: 'Публичное обращение'
@@ -163,6 +186,22 @@
     },
 
     methods: {
+
+      async asyncFind(e) {
+        if (e.length) {
+          await this.$axios.get('feed/index?title=' + encodeURIComponent(e))
+            .then(res => {
+              if (res.data.length) {
+                this.linksFeed = res.data.map(x => ({...x, name: x.title}))
+              } else {
+                this.linksFeed = [];
+              }
+
+            })
+            .catch(err => console.log(err))
+        }
+
+      },
 
       deleteFile(item) {
 
@@ -221,7 +260,8 @@
             size: file.fileSize,
             type: file.fileType,
             link: file.filePath,
-          }))
+          })),
+          links: this.links.map(link => ({link_id:  link.id}))
         }
 
         await this.$axios.post('feed/create', form)

@@ -20,6 +20,6 @@ export const getters = {
     return state.auth.loggedIn
   },
   user (state) {
-    return state.auth.user.data
+    return (state.auth.user || {}).data || {}
   },
 };

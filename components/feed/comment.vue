@@ -36,8 +36,15 @@
         </button>
 
         <div class="comment__rating">
-          <like class="comment__ratingItem "/>
-          <dislike class="comment__ratingItem "/>
+
+          <like class="comment__ratingItem"
+                @click="$emit('sendLike', 'like')"
+                :class="{'isActive': comment.isLiked, 'disabled' : !loggedIn}"
+                :count="comment.likes"/>
+          <dislike class="comment__ratingItem"
+                   @click="$emit('sendLike', 'dislike')"
+                   :class="{'isActive': comment.isDisliked, 'disabled' : !loggedIn}"
+                   :count="comment.dislikes"/>
         </div>
       </div>
 

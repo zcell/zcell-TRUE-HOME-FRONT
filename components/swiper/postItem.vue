@@ -62,7 +62,7 @@
     border-radius: 20px;
     cursor: pointer;
     transition: all .3s;
-    min-height: 248px;
+    min-height: 265px;
 
     display: flex;
     flex-direction: column;
@@ -105,6 +105,20 @@
       font-size: 16px;
       font-weight: 800;
       margin-bottom: 10px;
+
+      max-height: 22px;
+
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 1;
+      word-wrap: break-word;
+      word-break: break-word;
+      line-break: auto;
+      -webkit-hyphens: manual;
+      -ms-hyphens: manual;
+      hyphens: manual;
+      overflow: hidden;
     }
 
     &__footer {

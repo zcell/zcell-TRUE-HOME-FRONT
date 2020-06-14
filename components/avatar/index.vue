@@ -15,7 +15,7 @@
       src: {
         type: String,
         default() {
-          return '/img/avatar.png'
+          return ''
         }
       },
       firstName: {

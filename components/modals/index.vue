@@ -97,6 +97,25 @@
         Регистрация
       </div>
 
+      <multiselect :options="addresses"
+                   v-model="home"
+                   :searchable="true"
+                   :close-on-select="false"
+                   :options-limit="300"
+                   :limit="3"
+                   :max-height="400"
+                   :show-no-results="false"
+                   :hide-selected="true"
+                   @search="asyncFind"
+                   :error="errorForm.get('house_id')"
+                   @open="errorForm.clear('house_id')"
+                   :loading="isSearch"
+                   :internal-search="false"
+                   :allowEmpty="false"
+                   class="modal__select"
+                   @input=""
+                   label="Адрес дома"/>
+
       <customInput class="modal__input"
                    title="Имя"
                    @click="errorForm.clear('first_name')"
@@ -123,6 +142,7 @@
                    :mask="{mask: '+7(999) 999-9999'}"
                    placeholder="+7(999) 999-9999"
                    v-model="reg.phone"/>
+
 
 
 
@@ -186,6 +206,9 @@
           last_name: '',
           phone: '',
         },
+        isSearch: false,
+        home: {},
+        addresses: [],
         showTemplate: 'auth',
         errorForm: new Errors(),
         isSending: false,
@@ -201,6 +224,26 @@
     },
 
     methods: {
+      async asyncFind(e) {
+
+        if (e.length) {
+          this.$axios.get('common/houses?name=' + encodeURIComponent(e))
+            .then(res => {
+              if (res.data.length) {
+                this.addresses = res.data.map(x => ({...x, name: `г. ${x.city} ул. ${x.street} ${x.house}`}))
+              } else {
+                this.addresses = [];
+              }
+
+            })
+            .catch(err => {
+
+              console.log(err);
+            })
+        }
+
+      },
+
       async login() {
         this.isSending = true;
         await this.$auth.login({
@@ -217,7 +260,10 @@
 
       async registr() {
         this.isSending = true;
-        await this.$axios.post('auth/register', this.reg)
+        await this.$axios.post('auth/register', {
+          ...this.reg,
+          house_id: this.home.id || null
+        })
           .then(async (response) => {
             this.showTemplate = 'sendRegistr';
 

@@ -16,7 +16,7 @@
              multiple
              @change="handleDrop"
              class="importFile__input"
-             accept=".xls, .avi, .mov, .mp4, .doc, .docx, .xls, .odt, .png, .jpeg, .jpg, .zip, .pdf, .rar, .ppt">
+             accept=".xls, .avi, .mov, .mp4, .doc, .docx, .xls, .numbers, .xlsx, .odt, .png, .jpeg, .jpg, .zip, .pdf, .rar, .ppt">
 
     </template>
     <template v-else>
@@ -85,7 +85,7 @@
           let idxDot = file.name.lastIndexOf(".") + 1;
           let extFile = file.name.substr(idxDot).toLowerCase();
 
-          if (file.size < 59388608 && ["xls", "avi", "mov", "mp4", "doc", "docx", "xls", "odt", "png", "jpeg", "jpg", "zip", "pdf", "rar", "ppt"].includes(extFile)) {
+          if (file.size < 59388608 && ["xls", "avi", "mov", "mp4", "doc", "docx", "xls", "numbers", "xlsx", "odt", "png", "jpeg", "jpg", "zip", "pdf", "rar", "ppt"].includes(extFile)) {
             sendFiles.push(file)
           }
         })

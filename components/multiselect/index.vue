@@ -1,5 +1,6 @@
 <template>
-  <div class="multiselectWrapper">
+  <div class="multiselectWrapper"
+       :class="{'isError': error}">
     <template v-if="label">
             <span class="multiselectWrapper__label">
                 {{label}}
@@ -9,10 +10,11 @@
     <vue-multiselect class="multiselectWrapper__multiselect"
                      :value="value"
                      :options="options"
-                     :searchable="false"
+                     :searchable="searchable"
                      track-by="id"
                      :show-labels="false"
                      v-on="$listeners"
+                     @search-change="$emit('search', $event)"
                      v-bind="$attrs"
                      :allow-empty="allowEmpty"
                      :placeholder="placeholder"
@@ -79,6 +81,12 @@
         type: Boolean,
         default() {
           return true
+        }
+      },
+      searchable: {
+        type: Boolean,
+        default() {
+          return false
         }
       },
       multiple: {

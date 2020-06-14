@@ -8,11 +8,15 @@
         <li class="customSwiper__swiperSlide swiper-slide"
             v-for="(item, index) in items"
             @dblclick="open(index, item.id)"
-            :key="+item.id + index">
+            :key="+item.id">
 
           <imgItem :img="item" v-if="swiperItem === 'itemImg'"/>
           <postItem :item="item" v-if="swiperItem === 'postItem'"/>
-
+          <settingsItem v-if="swiperItem === 'settingsItem'"
+                        :drop-menu-items="requestDrop"
+                        :time="time"
+                        :item="item"
+                        @changeDrop=""/>
         </li>
 
       </ul>
@@ -32,6 +36,17 @@
           return 'itemImg'
         }
       },
+      time: {
+        default() {
+          return false;
+        }
+      },
+      requestDrop: {
+        default() {
+          return [];
+        }
+      },
+
       items: {
         type: Array,
         default() {
@@ -72,12 +87,16 @@
 
     methods: {
       open(index, id) {
+
         if (this.swiperItem === 'itemImg') {
           this.$emit('openPSWP', index);
-        }
-        if (this.swiperItem === 'postItem') {
+        } else {
+
           this.$emit('openFeed', id);
         }
+
+
+
       }
 
     }

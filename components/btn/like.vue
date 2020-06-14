@@ -38,6 +38,7 @@
     }
 
     &.disabled {
+      pointer-events: none;
       &:hover {
         color: $grey;
 

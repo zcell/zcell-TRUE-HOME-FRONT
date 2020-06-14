@@ -41,6 +41,7 @@
     }
 
     &.disabled {
+      pointer-events: none;
       .countBtn__svg {
         fill: $grey !important;
       }

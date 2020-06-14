@@ -81,10 +81,10 @@
                          placeholder="Введите фамилию"
                          class="page__w100 page__mb30"/>
 
-            <customInput v-model="form.last_name"
-                         @click="errorForm.clear('last_name')"
-                         :text-error="errorForm.get('last_name')"
-                         @focus="errorForm.clear('last_name')"
+            <customInput v-model="form.first_name"
+                         @click="errorForm.clear('first_name')"
+                         :text-error="errorForm.get('first_name')"
+                         @focus="errorForm.clear('first_name')"
                          title="Имя"
                          placeholder="Введите имя"
                          class="page__w100 page__mb30"/>

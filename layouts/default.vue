@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" id="wrapper">
     <appHeader />
-    <div class="wrapper__content">
+    <div class="wrapper__content" id="wrapper__content">
 
         <nuxt />
 

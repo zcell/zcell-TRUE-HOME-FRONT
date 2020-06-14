@@ -5,6 +5,13 @@
   min-width: 200px;
   user-select: none;
 
+  &.isError {
+    .multiselect__tags {
+      border: 1px solid #F55959;
+      background: rgba(245, 89, 89, 0.05);
+    }
+  }
+
   .multiselect {
 
     &--active {
@@ -33,7 +40,7 @@
   &__error {
     position: absolute;
     left: 0;
-    bottom: 3px;
+    bottom: -15px;
     width: 100%;
     white-space: nowrap;
     overflow: hidden;

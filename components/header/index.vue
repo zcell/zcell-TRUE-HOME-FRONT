@@ -10,8 +10,12 @@
 
         </div>
         <div class="header__right">
-          <actionBtn svg="bookMarks" class="header__action" v-if="loggedIn"/>
-          <actionBtn svg="bell" class="header__action isBell"/>
+          <actionBtn svg="bookMarks" class="header__action" v-if="loggedIn  && !user.isHousing"/>
+          <actionBtn svg="settings"
+                     @click="$router.push({name:'settings'})"
+                     class="header__action"
+                     v-if="loggedIn && user.isHousing"/>
+          <actionBtn svg="bell" class="header__action isBell" v-if="loggedIn"/>
           <div class="header__drop">
             <avatar class="header__avatar"
                     :src="user.avatar"

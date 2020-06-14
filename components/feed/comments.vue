@@ -1,10 +1,10 @@
 <template>
   <div class="comments">
     <div class="comments__comments">
-      <div class="comments__count">
+      <div class="comments__count" v-if="comments.length < +commentsMeta.total">
         <button v-if="!isLoadComments"
                 class="comments__countBtn"
-                @click="getComments()"
+                @click="getComments(+commentsMeta.page + 1)"
                 type="button">
           {{countComments}}
         </button>
@@ -14,8 +14,11 @@
       <comment class="comments__comment"
                v-for="comment in comments"
                :comment="comment"
+               @sendLike="sendLike($event, comment)"
                :is-mine="+comment.user_id === +user.id"
                :key="comment.id + 'comment'"/>
+
+      <h2 class="comments__empty" v-if="comments.length === 0">Комментариев нет</h2>
 
     </div>
 
@@ -58,7 +61,7 @@
     },
 
     async mounted() {
-      await this.getComments();
+      await this.getComments(0, 1);
     },
 
     data() {
@@ -67,7 +70,9 @@
         isSending: false,
         isLoadComments: false,
         comments: [],
-        commentsMeta: {},
+        commentsMeta: {
+          total: 0
+        },
       }
     },
 
@@ -79,19 +84,47 @@
         return this.$store.getters['user'];
       },
       countComments() {
-        return `Еще 30 ${this.$declOfNum(30, ['комментарий', 'комментариев', 'комментариев'])} из 180`
+        return `Еще ${+this.commentsMeta.total - this.comments.length <= 30 ? +this.commentsMeta.total - this.comments.length : 30} ${this.$declOfNum(+this.commentsMeta.total - this.comments.length <= 30 ? +this.commentsMeta.total - this.comments.length : 30, ['комментарий', 'комментариев', 'комментариев'])} из ${+this.commentsMeta.total - this.comments.length}`
       }
     },
 
     methods: {
 
-      async getComments(offset = 0) {
+      async sendLike(type, comment) {
+        if (this.loggedIn) {
+          await this.$axios.post(`comments/${type}`, {
+            comment_id: comment.id
+          })
+            .then((res) => {
+              comment.dislikes = res.data.dislikes;
+              comment.isDisliked = res.data.isDisliked;
+              comment.isLiked = res.data.isLiked;
+              comment.likes = res.data.likes;
+
+
+            })
+            .catch((error) => {
+              console.log(error);
+
+            });
+        }
+      },
+
+      async getComments(page = 0, limit = 30) {
         this.isLoadComments = true;
 
-        //   await this.$axios.get(`comments?feed_id=${this.feedId}`)
-        await this.$axios.get(`comments?feed_id=40`)
+
+        await this.$axios.get(`comments?limit=${limit}&page=${page}&feed_id=${this.feedId}`)
           .then(res => {
-            this.comments = res.data
+            if (page) {
+
+              this.comments.unshift(...res.data.items.reverse())
+
+            } else {
+              this.comments = res.data.items;
+            }
+
+            this.commentsMeta = res.data.meta;
           })
           .catch(err => console.log(err))
         this.isLoadComments = false;
@@ -103,11 +136,12 @@
         //   await this.$axios.get(`comments/create?feed_id=${this.feedId}`)
         await this.$axios.post(`comments/create`, {
           text: this.comment,
-          feed_id:40,
+          feed_id: this.feedId,
           user_id: this.user.id
         })
           .then(res => {
-
+            this.comment = '';
+            this.comments.push(res.data);
           })
           .catch(err => console.log(err))
         this.isSending = false;
@@ -130,6 +164,11 @@
       flex-direction: column;
       width: 100%;
       margin-bottom: 40px;
+    }
+
+    &__empty {
+      margin-bottom: 0;
+      text-align: center;
     }
 
     &__count {

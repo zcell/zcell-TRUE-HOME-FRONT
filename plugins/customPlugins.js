@@ -15,6 +15,7 @@ import dropMenu from '~/components/dropMenu/index'
 import customSwiper from '~/components/swiper/index'
 import imgItem from '~/components/swiper/imgItem'
 import postItem from '~/components/swiper/postItem'
+import settingsItem from '~/components/swiper/settingsItem'
 import PhotoswipeCustomComponents from "~/components/photoswipe/index";
 import countBtn from "../components/btn/countBtn";
 import like from "../components/btn/like";
@@ -58,4 +59,5 @@ Vue.component('radioBtn', radioBtn);
 Vue.component('dataPicker', dataPicker);
 Vue.component('feedFiles', feedFiles);
 Vue.component('voting', voting);
+Vue.component('settingsItem', settingsItem);
 

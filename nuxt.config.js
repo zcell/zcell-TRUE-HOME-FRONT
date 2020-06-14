@@ -5,7 +5,7 @@ export default {
     port: settings.port,
     host: settings.host,
   },
-  mode: 'universal',
+  mode: 'spa',
   /*
   ** Headers of the page
   */

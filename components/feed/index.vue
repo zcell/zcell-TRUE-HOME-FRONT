@@ -311,7 +311,7 @@
       width: 100%;
 
       margin-bottom: 20px;
-
+flex-wrap: wrap;
       display: flex;
       align-items: center;
       justify-content: space-between;
